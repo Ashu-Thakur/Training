@@ -350,3 +350,237 @@ print(range(10, 2, -1))
 #!--------------------------Mapping Object--------------------------------------------
 dic = {"Name":"Ashutosh Thakur","class":12,"Roll_Number":1001}
 dic2 = {"Name":"Vinay","class":10,"Roll_Number":1002}
+
+# other ways to create a dictionary
+dic3 = dict([("Name","Ashutosh Thakur"),("class", 12), ("Roll_Number", 1001)])
+print(dic3)
+
+# get key,value and items
+print("keys",dic3.keys())
+print("type of keys",type(dic3.keys()))
+for i in dic3.keys():
+    print(i)
+
+
+print("Values",dic3.values())
+print("type of Values",type(dic3.values()))
+for i in dic3.values():
+    print(i)
+
+print("Items ",dic3.items())
+print("type of items",type(dic3.items()))
+for i,j in dic3.items():
+    print(i,j)
+
+# ?Add Items
+dic3["Age"] = 18
+dic3["course"] = ["Math","Science","Hindi","English","social science","Sanskrit"]
+print(dic3)
+
+
+#?delete items
+# del dic3["Age"]
+# dic3.clear()
+# print(dic3.pop("Age"))#return perticular key value
+print(dic3.popitem())#return last key value and remove it from the dictionary
+print(dic3)
+
+
+# ?Search or Get
+print(dic3.get("Name","none"))#returns specific value and if not found then return the second perametter as passed default value
+#returns specific value and if not found then return the error
+print(dic3["Name"])
+print("Name" in dic3)
+
+
+# ?Update
+print(dic3,dic2)
+dic2.update(dic3)
+print(dic2)
+# after 3.9 | operator used to merge two dict
+print(dic2|dic3)
+
+
+# unpacking And copy
+# Deep copy
+var = {**dic3}
+var["Age"] = 22
+print(var,dic3)
+print("__________________________-")
+# shallow copy by copy method
+dic3["course"] =["Math","Science","Hindi","English","Sanskrit"]
+new_dict = dic3.copy()
+
+new_dict["course"][0] = "mathematics"
+print(new_dict)
+print(dic3)
+
+# if the key is present then dict will stay unaffected
+dic3.setdefault("Name","Ashutosh")
+dic3.setdefault("FirstName","Ashutosh")
+print(dic3)
+
+# shorting the dictionary
+print("--------------sorting-------------")
+new_sorted_dict = dict(sorted(dic3.items()),)
+print(new_sorted_dict)
+
+# sort by specific way like on the values len
+print("--------------sorting-------------")
+new_sorted_dict = dict(sorted(dic3.items(),key = lambda x:len(str(x[1])),reverse=True))
+print(new_sorted_dict)
+
+# !-------------------------------Set-----------------------------------------------------------
+# ?Set: it is a unique value datastrucute,that is iterable, mutable and has no duplicate elements
+set_struct = {1,2,3,4,4,3,3,4,2}
+set_struct2 = set((1,2,3,4,5))
+print(set_struct)
+print(set_struct2)
+print(type(set_struct))
+
+# Add elements
+set_struct.add(5)
+print(set_struct)
+
+# remove elements
+set_struct.remove(5) #it raise error if value not found
+print(set_struct)
+
+set_struct.discard(12)
+print(set_struct)
+
+set_struct.pop() # remove random number
+print(set_struct)
+
+# Update
+set_struct.update([1,2,3,4,5,6,7,8,9])
+print(set_struct)
+
+# union
+unionset = set_struct.union(["","Apple",True])
+print(unionset)
+
+# intersection
+intersectionset = unionset.intersection([1,2,"Apple",True,""])
+print(intersectionset)
+
+# differende
+diffrenceset = unionset.difference(intersectionset)
+print(diffrenceset)
+
+# symetricdiffrence
+set1 = {1,2,3}
+set2 = {4,5,3,2}
+print(set1.symmetric_difference(set2))
+
+# subset and superset
+print({1,2,3}.issubset({1,2,3,4,5,6,7,7,8,9}))
+print({1,2,3,4,5,6,7,7,8,9}.issuperset({2,4,6,9}))
+
+# !----------------------Frozzenset------------------
+"""It is immutable,unordered and contain only unique value it is subset of set properties.we can't add or update it we just access and find out some set operations"""
+temp_set = frozenset([1,2,3,4_5,6,"Hello World","Python"])
+print(temp_set)
+temp_set = temp_set - {1,2,3} # here the frozenset isn't changed we changed the reference
+print(temp_set)
+# temp_set.add(1) # it raise error
+
+# !----------------------------------Bool------------------------------------------
+
+"""It is an buit -in datatype ,can only have two posssible values : True , False """
+print(type(True))
+print(type(False))
+print(bool(10))
+
+li = [True,False,True,True,True,False,True]#True = 1 and False = 0 
+print(sum(li))
+
+# bolean operator
+print(True and False)
+print(True or False)
+print(not True)
+print(True == False)
+print(True != False)
+print(True > False) # because True is 0 
+print(True is 1) # identity operator checks the memory reference like both on same memory address
+print(True == 1)
+
+print("-------------------------------")
+import math
+# Falsy values
+print(bool(0))
+print(bool(""))
+print(bool([]))
+print(bool({}))
+print(bool(None))
+print(bool(False))
+print(bool(math.inf),math.inf) #both is true
+print(bool(math.nan),math.nan) #both is true
+print(bool(0.0))
+
+# chaining comparision
+print("-------------------------------")
+print(1 < 2 < 3) #itl works like 1 < 2 and 2 < 3
+# True
+
+#type conversion into bool
+print("----------------------------")
+print(1 == "1")
+print(1 == -1)
+print(1 == 1.0)
+
+print(bool(int()))
+print(bool(10))
+print(bool(-10))
+print(bool(0))
+print(bool(-0))
+print(bool(10.0))
+print(bool([0,0,0,0]))
+print(bool([0])) # because array contains a boject on it's first index it's not a blank array
+
+#!---------------------None Type--------------------------
+"""None is used to define a null value or Null object in Python. It is not the same as an empty string, a False, or a zero. It is a data type of the class NoneType object."""
+
+print(type(None))
+print(None is False)
+print(None is True)
+print(None is 0)
+print(None is "")
+print("-------------------------------")
+
+print(bool(None)) #False Value because it's nothing
+
+# !--------------------------------Bytes------------------------------------
+"""Bytes is a sequence of bytes. It is a subclass of the immutable sequence type str. It
+is used to store binary data. It is a sequence of integers in the range 0 <= x
+< 256."""
+print("-------------------------------")
+
+print(type(bytes(range(10))))
+# it take's iterable object to convert .it into 
+bty =bytes(range(10))
+print(bty)
+
+print(bty[0:5])# it will give the array of bytes
+# !bty[0] = ord('a')#it's imutable
+
+print(bty[8])
+str = "Hello World"
+
+print(bytes(str,'UTF-8'))
+
+print(str.encode('utf-8'))
+bt_string = str.encode('utf-8')
+print(bt_string.decode('utf-8'))
+# !----------------------------ByteArray-----------------------------------
+"""It's mutable bytes array"""
+bt_arr = bytearray(range(10))
+bt_arr[0] = 254
+print(bt_arr)
+
+#! ------------------------memoryview----------------------------------------
+"""memoryview in Python allows you to access and manipulate the memory of an object without copying it. This can be particularly useful when dealing with large data buffers, as it helps optimize performance by avoiding unnecessary data duplication."""
+
+data = bytearray(b'Hello, world!')
+mv = memoryview(data)
+print(mv)
