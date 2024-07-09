@@ -1,0 +1,2 @@
+# !Alphabet soup is a type of puzzle where a grid of letters is provided, and the goal is to find and circle specific words hidden in the grid. Words can be arranged in any direction: horizontally, vertically, or diagonally.
+# !

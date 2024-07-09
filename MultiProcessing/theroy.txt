@@ -1,0 +1,98 @@
+### Multiprocessing vs. Multithreading
+
+#### Multiprocessing:
+1. **Definition**: 
+   - Multiprocessing involves multiple processes, each with its own memory space. Each process runs independently and can be on different CPUs or cores.
+2. **Advantages**: 
+   - Better for CPU-bound tasks (e.g., mathematical computations).
+   - Each process runs in its own memory space, reducing the risk of memory conflicts.
+3. **Disadvantages**: 
+   - Higher memory usage since each process has its own memory.
+   - Inter-process communication (IPC) can be complex and slower.
+4. **Implementation**:
+   - The `multiprocessing` module in Python allows you to create and manage processes.
+
+#### Multithreading:
+1. **Definition**: 
+   - Multithreading involves multiple threads within the same process, sharing the same memory space.
+2. **Advantages**: 
+   - Better for I/O-bound tasks (e.g., reading/writing files, network operations).
+   - Lower memory usage as threads share the same memory space.
+3. **Disadvantages**: 
+   - Global Interpreter Lock (GIL) in CPython prevents true parallel execution of threads, limiting performance gains for CPU-bound tasks.
+   - Shared memory space can lead to issues such as race conditions.
+4. **Implementation**:
+   - The `threading` module in Python allows you to create and manage threads.
+
+### What is a Thread?
+- **Definition**: A thread is the smallest unit of execution within a process. Multiple threads can exist within the same process and share the same memory space.
+- **Use Cases**: Threads are ideal for I/O-bound tasks like network requests, reading/writing to disk, and user interactions.
+- **Execution**: Threads can run concurrently, but due to the GIL in CPython, they do not achieve true parallel execution for CPU-bound tasks.
+
+### What is a Process?
+- **Definition**: A process is an independent program in execution, with its own memory space, program counter, and resources. Each process can have multiple threads.
+- **Use Cases**: Processes are ideal for CPU-bound tasks that need true parallel execution. Using multiple processes can utilize multiple CPU cores.
+- **Execution**: Processes run independently of each other. Communication between processes (IPC) can be achieved through various methods like pipes, sockets, or shared memory.
+
+### Summary
+- **Multiprocessing**: Uses multiple processes, each with its own memory. Suitable for CPU-bound tasks. Achieves true parallelism.
+- **Multithreading**: Uses multiple threads within the same process, sharing the same memory. Suitable for I/O-bound tasks. Limited by the GIL in CPython.
+
+### Example Code Comparison
+
+#### Multithreading Example
+```python
+import threading
+import time
+
+def print_square(num):
+    for i in range(num):
+        time.sleep(0.2)
+        print(f"Square: {i * i}")
+
+def print_cube(num):
+    for i in range(num):
+        time.sleep(0.2)
+        print(f"Cube: {i * i * i}")
+
+t1 = threading.Thread(target=print_square, args=(5,))
+t2 = threading.Thread(target=print_cube, args=(5,))
+
+t1.start()
+t2.start()
+
+t1.join()
+t2.join()
+
+print("Done with multithreading")
+```
+
+#### Multiprocessing Example
+```python
+import multiprocessing
+import time
+
+def print_square(num):
+    for i in range(num):
+        time.sleep(0.2)
+        print(f"Square: {i * i}")
+
+def print_cube(num):
+    for i in range(num):
+        time.sleep(0.2)
+        print(f"Cube: {i * i * i}")
+
+if __name__ == '__main__':
+    p1 = multiprocessing.Process(target=print_square, args=(5,))
+    p2 = multiprocessing.Process(target=print_cube, args=(5,))
+
+    p1.start()
+    p2.start()
+
+    p1.join()
+    p2.join()
+
+    print("Done with multiprocessing")
+```
+
+In summary, choose multithreading for I/O-bound tasks and multiprocessing for CPU-bound tasks to make the best use of your system's resources.
