@@ -222,4 +222,25 @@ obj = D()
 print(D.mro())
 # it follows the depth first search untill it reach at the last point it doesn't go back 
 # if the the parent of parent is same for both classes then it attach it at the end of both class searched.
+class MyClass:
+    def __new__(cls, *args, **kwargs):
+        print(f"__new__ called with: {cls}, {args}, {kwargs}")
+        instance = super().__new__(cls)
+        return instance
+    
+    def __init__(self, *args, **kwargs):
+        print(f"__init__ called with: {self}, {args}, {kwargs}")
+        self.args = args
+        self.kwargs = kwargs
 
+# Creating an instance of MyClass
+obj = MyClass(1, 2, key='value')
+
+# Property
+class Meta:
+    @property
+    def Greet(self):
+        return "Hello"
+
+obj = Meta()
+print(obj.Greet)

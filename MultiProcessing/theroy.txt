@@ -96,3 +96,71 @@ if __name__ == '__main__':
 ```
 
 In summary, choose multithreading for I/O-bound tasks and multiprocessing for CPU-bound tasks to make the best use of your system's resources.
+
+
+#!----------------------------------------------------------------------------------------------------------
+
+# Why Use Lock in Multiprocessing?
+
+When multiple processes access and modify shared data simultaneously, it can lead to inconsistent or incorrect results due to race conditions. A race condition occurs when the outcome depends on the non-deterministic timing of the processes. To prevent race conditions, we use locks.
+
+A lock is a synchronization primitive that ensures that only one process can access the shared resource at a time. When a process acquires a lock, other processes that need the same resource will be blocked until the lock is released.
+
+How to Use Lock in Multiprocessing
+Create a Lock: You create a lock object that can be shared among processes.
+Acquire the Lock: Before accessing the shared resource, a process must acquire the lock.
+Release the Lock: After finishing with the shared resource, the process releases the lock, allowing other processes to acquire it.
+#!----------------------------------------------------------------------------------------------------------
+### What is a Race Condition?
+
+A race condition is a situation that occurs when two or more processes or threads try to access and modify shared data at the same time, and the final outcome depends on the order in which the processes or threads execute. This can lead to unpredictable and incorrect results.
+
+### Simple Explanation
+
+Imagine two people trying to write on the same piece of paper at the same time. If both try to write their own messages without waiting for the other, their writing will overlap, making the message unreadable. Similarly, in a race condition, when multiple processes or threads try to access and change the same data simultaneously, the results can get mixed up and lead to errors.
+
+### Example
+
+Let's say we have a shared counter that starts at 0, and we have two processes that want to increment this counter.
+
+1. **Without Synchronization**:
+   - Both processes read the counter (initially 0).
+   - Process 1 increments it to 1.
+   - Process 2 also increments it to 1 (because it also read the initial value as 0 before Process 1 incremented it).
+   - The final counter value is 1 instead of 2.
+
+2. **With Synchronization**:
+   - Process 1 reads the counter (initially 0) and increments it to 1.
+   - Process 2 reads the counter (now 1) and increments it to 2.
+   - The final counter value is correctly 2.
+
+### Why Does It Happen?
+
+In computing, a race condition happens because of the timing and sequence of the operations. If processes don't wait for each other and access shared data simultaneously, they can interfere with each other’s operations, leading to unpredictable results.
+
+### Real-World Analogy
+
+Think of a bank account:
+- Two people (Person A and Person B) try to withdraw money from the same account at the same time.
+- The account has $100.
+- Both Person A and Person B check the balance simultaneously and see $100.
+- Both decide to withdraw $80.
+- Without synchronization, both withdraw $80, leaving the account with a negative balance, which shouldn’t happen.
+
+By using synchronization mechanisms like locks, we ensure that only one person can check and withdraw money at a time, preventing the race condition.
+
+### Summary
+
+A race condition is like multiple people trying to do something with the same thing at the same time without coordination, leading to conflicts and incorrect results. Synchronization mechanisms help manage access to shared resources, preventing race conditions and ensuring correct outcomes.
+
+
+#-----------------Multiprocessing with pool------------------------
+
+# ---Multiprocessing Pools----------
+A multiprocessing.Pool is a convenient way to parallelize the execution of a function across multiple input values. A pool of worker processes is created, and tasks are distributed among these workers to run in parallel.
+
+
+! ----when we don't want to manage all process manually and distribute the task manually then we create pool which distribute the task automatically
+
+ ! map means => distribute the task among the cores
+ ! reduce means => after process gethher all the distributed data
